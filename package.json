@@ -2,8 +2,10 @@
   "name": "mern-chat",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "server": "node Backend/server.js"
+    "server": "node Backend/server.js",
+    "dev":"nodemon Backend/server.js"
   },
   "keywords": [],
   "author": "",
