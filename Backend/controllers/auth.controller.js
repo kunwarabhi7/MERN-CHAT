@@ -32,7 +32,7 @@ const newUser = new User({
 
 //
 if(newUser){
-await generateJWTTOKEN(newUser._id,res)
+ generateJWTTOKEN(newUser._id,res)
     await newUser.save()
     res.status(201).json({message: "User created successfully"
         ,
@@ -47,10 +47,30 @@ await generateJWTTOKEN(newUser._id,res)
     }
 
 }
-export const login = (req,res)=>{
-    res.send("Login Page")
+export const login =async (req,res)=>{
+    try {
+   const {username,password} = req.body;
+   if(!username || !password){
+       return res.status(400).json({error: "All fields are required"})
+   }
+   const user = await User.findOne({username});
+   const isPasswordCorrect = await bcrypt.compare(password,user?.password || '');
+   if(!user ||!isPasswordCorrect){
+       return res.status(401).json({error: "Invalid username or password"})
+   } 
+   generateJWTTOKEN(user._id,res);
+   
+   res.status(200).json({
+    username:user.username,_id:user._id,
+    profilePic: user.profilePic, fullName:user.fullName
+   })
+    } catch (error) {
+        console.log("Error in SignUp User" ,error.message);
+        res.status(500).json({error: "Internal Server Error" , message: error.message})
+   
+    }
 }
 
-export const logout = (req,res)=>{
+export const logout = async(req,res)=>{
     res.send("LogOut Page")
 }
