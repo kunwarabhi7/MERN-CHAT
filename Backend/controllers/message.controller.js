@@ -23,9 +23,10 @@ if (!conversation){
   if(newMessage){
     conversation.message.push(newMessage._id);
   }
-  
-  await conversation.save();
-  await newMessage.save();
+  // run in parrellel 
+  await Promise.all([conversation.save(),newMessage.save()]);
+//   await conversation.save();
+//   await newMessage.save();
   res.status(201).json(newMessage);
    } catch (error) {
     console.log("Error in Sending Message" ,error.message);
