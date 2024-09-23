@@ -32,3 +32,22 @@ if (!conversation){
     console.log("Error in Sending Message" ,error.message);
     res.status(500).json({error: "Internal Server Error" , message: error.message})
    }}
+
+   export const getMessage = async(req,res) => {
+    try {
+        const {id:userToChatId} = req.params;
+        const senderId = req.user._id;
+        const conversation = await Conversation.findOne({
+            participants : {
+                $all : [senderId,userToChatId]
+            }
+        }).populate("message")
+        if(!conversation) {
+            return res.status(200).json([]);
+        }
+        res.status(200).json(conversation.message);
+    } catch (error) {
+        console.log("Error in get  Message controller" ,error.message);
+    res.status(500).json({error: "Internal Server Error" , message: error.message})
+    }
+   }
