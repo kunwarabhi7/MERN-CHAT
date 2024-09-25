@@ -1,18 +1,22 @@
 import { Link } from "react-router-dom";
 import GenderCheckbox from "./GenderCheckbox";
 import { useState } from "react";
+import useSignup from "../../hooks/useSignup";
 
 const SignUp = () => {
 const [input,setInput] =	useState({
-	fullname:"", username:"" , password:"",confirmPasswor:"",  gender:""
+	fullName:"", username:"" , password:"",confirmPassword:"",  gender:""
 });
+
+const {signup,loading} = useSignup()
 
 const handleCheckboxChange = (gender) =>{
 	setInput({...input,gender})
 }
 
-const handleSubmit = (e) => {
+const handleSubmit = async(e) => {
 	e.preventDefault();
+	signup(input);
 	console.log(input);
 };
 	return (
@@ -27,7 +31,7 @@ const handleSubmit = (e) => {
 						<label className='label p-2'>
 							<span className='text-base label-text'>Full Name</span>
 						</label>
-						<input value={input.fullname} onChange={(e)=>setInput({...input,fullname:e.target.value})} type='text' placeholder='John Doe' className='w-full input input-bordered  h-10' />
+						<input value={input.fullName} onChange={(e)=>setInput({...input,fullName:e.target.value})} type='text' placeholder='John Doe' className='w-full input input-bordered  h-10' />
 					</div>
 
 					<div>
@@ -52,7 +56,7 @@ const handleSubmit = (e) => {
 						<label className='label'>
 							<span className='text-base label-text'>Confirm Password</span>
 						</label>
-						<input value={input.confirmPasswor} onChange={(e)=>setInput({...input,confirmPasswor:e.target.value})}
+						<input value={input.confirmPassword} onChange={(e)=>setInput({...input,confirmPassword:e.target.value})}
 							type='password'
 							placeholder='Confirm Password'
 							className='w-full input input-bordered h-10'
