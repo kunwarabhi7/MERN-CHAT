@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import GenderCheckbox from "./GenderCheckbox";
 import { useState } from "react";
-import useSignup from "../../hooks/useSignup";
+import useSignup from '../../hooks/useSignup'
 
 const SignUp = () => {
 const [input,setInput] =	useState({
@@ -70,7 +70,9 @@ const handleSubmit = async(e) => {
 					</Link>
 
 					<div>
-						<button className='btn btn-block btn-sm mt-2 border border-slate-700'>Sign Up</button>
+						<button disabled={loading} className='btn btn-block btn-sm mt-2 border border-slate-700'>
+							{loading ? (<span className="loading loading-spinner loading-sm"></span>):"Sign Up"} 
+						</button>
 					</div>
 				</form>
 			</div>

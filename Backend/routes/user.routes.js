@@ -5,7 +5,7 @@ import protectedRoute from '../middleware/protectedRoute.js';
 
 const router = express.Router();
 
-router.get("/", protectedRoute, getUserForSideBar)
+router.get("/",  getUserForSideBar)
 
 
 export { router as userRoutes} ;
