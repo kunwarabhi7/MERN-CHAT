@@ -58,8 +58,8 @@ export const login =async (req,res)=>{
    if(!user ||!isPasswordCorrect){
        return res.status(401).json({error: "Invalid username or password"})
    } 
-   generateJWTTOKEN(user._id,res);
-   
+   generateJWTTOKEN(user?._id,res);
+//    console.log(user,'userrr')
    res.status(200).json({
     username:user.username,_id:user._id,
     profilePic: user.profilePic, fullName:user.fullName
