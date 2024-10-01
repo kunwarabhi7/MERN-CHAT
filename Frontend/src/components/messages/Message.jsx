@@ -12,7 +12,7 @@ const Message = ({message}) => {
 
 	const shakeClass = message.shouldShake ? "shake" : "";
 
-	return (
+	return ( 
 		<div className={`chat ${chatClassName}`}>
 			<div className='chat-image avatar'>
 				<div className='w-10 rounded-full'>
